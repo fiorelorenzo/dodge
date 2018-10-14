@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI pointsText;
     public float countDown;
     public TextMeshProUGUI countDownText;
+    public Text pauseButtonText;
+    public GameObject pauseMenuPanel;
 
     private long gamePoints = 0;
     private float timeToStart;
@@ -21,6 +24,8 @@ public class GameManager : MonoBehaviour
     //Awake is always called before any Start functions
     void Awake()
     {
+        pauseButtonText.gameObject.SetActive(false);
+        pauseMenuPanel.SetActive(false);
         isGamePaused = true;
         exitingPause = true;
         inputEnabled = false;
@@ -56,6 +61,7 @@ public class GameManager : MonoBehaviour
                 exitingPause = false;
                 isGamePaused = false;
                 Time.timeScale = 1;
+                pauseButtonText.gameObject.SetActive(true);
             }
             else
             {
@@ -92,14 +98,39 @@ public class GameManager : MonoBehaviour
         inputEnabled = false;
         isGamePaused = true;
         exitingPause = false;
-
+        pauseButtonText.text = "Play";
+        pauseMenuPanel.SetActive(true);
         // TODO: show settings menu
         //Disable scripts that still work while timescale is set to 0
     }
     public void ContinueGame()
     {
         //Time.timeScale = 1;
+        timeToStart = countDown;
         exitingPause = true;
+        countDownText.gameObject.SetActive(true);
+        pauseButtonText.text = "Pause";
+        pauseMenuPanel.SetActive(false);
         //enable the scripts again
+    }
+
+    public void TogglePuase()
+    {
+        if (isGamePaused)
+            ContinueGame();
+        else
+            PauseGame();
+    }
+
+    public void QuitGame()
+    {
+        // save any game data here
+        #if UNITY_EDITOR
+        // Application.Quit() does not work in the editor so
+        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+         Application.Quit();
+        #endif
     }
 }
