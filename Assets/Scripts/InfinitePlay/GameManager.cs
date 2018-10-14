@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Text pauseButtonText;
     public GameObject pauseMenuPanel;
     public GameObject gameOverPanel;
+    public GameObject joystick;
+    public TextMeshProUGUI finalPointsText;
 
     private long gamePoints = 0;
     private float timeToStart;
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        countDownText.gameObject.SetActive(true);
         pauseButtonText.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
         pauseMenuPanel.SetActive(false);
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 timeToStart -= Time.unscaledDeltaTime;
+                countDownText.gameObject.SetActive(true);
                 countDownText.SetText(timeToStart.ToString("0"));
             }
         }
@@ -125,7 +127,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         // TODO: save score
+
         isGameOver = true;
+        pointsText.gameObject.SetActive(false);
+        joystick.SetActive(false);
+        pauseButtonText.gameObject.SetActive(false);
+        finalPointsText.SetText("{0} points!", gamePoints);
         gameOverPanel.SetActive(true);
     }
 
@@ -150,12 +157,12 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         // save any game data here
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         // Application.Quit() does not work in the editor so
         // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
         UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
          Application.Quit();
-        #endif
+#endif
     }
 }

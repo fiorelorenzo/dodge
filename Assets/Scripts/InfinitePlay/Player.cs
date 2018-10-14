@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     public float movementSpeed = 5.0f;
     public float rotateSpeed = 5.0f;
@@ -18,9 +17,10 @@ public class Player : MonoBehaviour {
     float angle;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
-	}
+    }
 
     void Update()
     {
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag.Equals("Rocket"))
+        if (collision.tag.Equals("Rocket"))
         {
             // Player destroy effect
             // Game over
