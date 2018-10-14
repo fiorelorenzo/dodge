@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,23 +15,18 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI countDownText;
     public Text pauseButtonText;
     public GameObject pauseMenuPanel;
+    public GameObject gameOverPanel;
 
     private long gamePoints = 0;
     private float timeToStart;
     private bool isGamePaused;
     private bool inputEnabled;
     private bool exitingPause;
+    private bool isGameOver;
 
     //Awake is always called before any Start functions
     void Awake()
     {
-        pauseButtonText.gameObject.SetActive(false);
-        pauseMenuPanel.SetActive(false);
-        isGamePaused = true;
-        exitingPause = true;
-        inputEnabled = false;
-        Time.timeScale = 0;
-        //player.SetActive(false);
         //Check if instance already exists
         if (Instance == null)
             //if not, set instance to this
@@ -46,6 +42,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        pauseButtonText.gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
+        pauseMenuPanel.SetActive(false);
+        isGamePaused = true;
+        exitingPause = true;
+        inputEnabled = false;
+        isGameOver = false;
+        Time.timeScale = 0;
+
         timeToStart = countDown;
         pointsText.SetText(gamePoints.ToString());
     }
@@ -86,6 +91,11 @@ public class GameManager : MonoBehaviour
         return inputEnabled;
     }
 
+    public bool IsGameOver()
+    {
+        return isGameOver;
+    }
+
     public void AddPoints(int points)
     {
         gamePoints += points;
@@ -100,12 +110,10 @@ public class GameManager : MonoBehaviour
         exitingPause = false;
         pauseButtonText.text = "Play";
         pauseMenuPanel.SetActive(true);
-        // TODO: show settings menu
         //Disable scripts that still work while timescale is set to 0
     }
     public void ContinueGame()
     {
-        //Time.timeScale = 1;
         timeToStart = countDown;
         exitingPause = true;
         countDownText.gameObject.SetActive(true);
@@ -114,12 +122,29 @@ public class GameManager : MonoBehaviour
         //enable the scripts again
     }
 
+    public void GameOver()
+    {
+        // TODO: save score
+        isGameOver = true;
+        gameOverPanel.SetActive(true);
+    }
+
     public void TogglePuase()
     {
         if (isGamePaused)
             ContinueGame();
         else
             PauseGame();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()

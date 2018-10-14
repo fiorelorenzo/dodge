@@ -53,6 +53,7 @@ public class Player : MonoBehaviour {
             // Game over
             Instantiate(simpleExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            GameManager.Instance.GameOver();
         }
     }
 }
