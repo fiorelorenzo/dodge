@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject joystick;
     public TextMeshProUGUI finalPointsText;
+    public RocketSpawnManager spawnManager;
 
     private long gamePoints = 0;
     private float timeToStart;
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
         // TODO: save score
 
         isGameOver = true;
+        spawnManager.DisableAll();
         pointsText.gameObject.SetActive(false);
         joystick.SetActive(false);
         pauseButtonText.gameObject.SetActive(false);
