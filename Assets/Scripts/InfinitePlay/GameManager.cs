@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private bool exitingPause;
     private bool isGameOver;
 
+    private const string infiniteLeaderboardID = "CgkI3bL91doQEAIQAQ";
+
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -136,6 +138,13 @@ public class GameManager : MonoBehaviour
         pauseButtonText.gameObject.SetActive(false);
         finalPointsText.SetText("{0} points!", gamePoints);
         gameOverPanel.SetActive(true);
+
+        if(PlayServicesController.Instance.IsLoggedIn)
+        {
+            PlayServicesController.Instance.PostScoreToLeaderboard(gamePoints, infiniteLeaderboardID);
+            PlayServicesController.Instance.ShowLeaderboard(infiniteLeaderboardID);
+        }
+        
     }
 
     public void TogglePuase()

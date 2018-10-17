@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
-public class RocketSpawnManager : MonoBehaviour {
+public class RocketSpawnManager : MonoBehaviour
+{
 
     public float spawnRate;
     public List<Transform> rocketSpawners;
@@ -19,13 +19,15 @@ public class RocketSpawnManager : MonoBehaviour {
     //private int difficultyLevel = 0;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         warningText.gameObject.SetActive(false);
         timeToSpawn = spawnRate;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!GameManager.Instance.IsGamePaused() && GameManager.Instance.IsPlayerAlive())
         {
 
@@ -51,10 +53,10 @@ public class RocketSpawnManager : MonoBehaviour {
             }
             else
             {
-               timeToSpawn -= Time.deltaTime;
+                timeToSpawn -= Time.deltaTime;
             }
         }
-	}
+    }
 
     public void DisableAll()
     {
