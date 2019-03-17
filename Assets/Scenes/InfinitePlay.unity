@@ -1289,7 +1289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 534502011}
   pointsText: {fileID: 1105734938}
-  countDown: 9
+  countDown: 3
   countDownText: {fileID: 1010564875}
   pauseButtonText: {fileID: 1075004005}
   pauseMenuPanel: {fileID: 742185806}
@@ -1653,19 +1653,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c7b7e4ef8232042b211f0b442d387b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 5
-  rocketSpawners:
-  - {fileID: 429346124}
-  - {fileID: 1941050529}
-  - {fileID: 284521818}
-  rocketSpawnWarnings:
-  - {fileID: 1709420853}
-  - {fileID: 648745869}
-  - {fileID: 875286855}
+  spawnRate: 10
+  rocketSpawners: []
+  rocketSpawnWarnings: []
   simpleRocketPrefab: {fileID: 1869892581988284, guid: dee94ec1026f04242ab1215cc40d5ca5,
     type: 2}
   warningText: {fileID: 2104375368}
-  showWarningTime: 3.3
+  showWarningTime: 5
 --- !u!1 &1010564874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2792,7 +2786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 534502013}
-  scrollSpeed: 0.2
+  scrollSpeed: 1
 --- !u!54 &1664688852
 Rigidbody:
   m_ObjectHideFlags: 0
